@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../static/CSS/Usercard.css';
 import '../static/CSS/Inside.css';
-import test_pic from '../static/images/testphoto.jpg'
-import {BrowserRouter, Link, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 const fetchUsers = async (filter, statusFilter) => {

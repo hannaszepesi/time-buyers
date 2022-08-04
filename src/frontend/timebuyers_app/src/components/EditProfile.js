@@ -28,7 +28,7 @@ export default function EditProfile() {
                 <Form.Label>Username</Form.Label>
                 <Form.Control placeholder={user.userName} disabled />
 
-                <Form.Label>Username</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control placeholder={user.password} disabled />
 
                 <Form.Label>Email</Form.Label>
