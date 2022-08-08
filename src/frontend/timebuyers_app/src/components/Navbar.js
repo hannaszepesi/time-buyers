@@ -41,7 +41,7 @@ function Navbar(){
                         <Link to={"/users/new-user"} className="nav-link">Registration</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={"/users/edit-profile/test@gmail.com"} className="nav-link">Edit Profile</Link>
+                        <Link to={"/users/edit-profile/josh@gmail.com"} className="nav-link">Edit Profile</Link>
                     </li>
                 </ul>
             </div>

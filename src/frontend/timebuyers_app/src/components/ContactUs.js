@@ -72,7 +72,7 @@ function ContactUs() {
                     </div>
                 </div>
                 <div>
-                    <form action="api/send-email/{{emailAddress}}">
+                    <form action="api/send-email/takacsberni@gmail.com" method="post">
                 <label htmlFor="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Your name.." onChange={handleName} value={name}/>
 
