@@ -64,7 +64,7 @@ class TimeBuyersTests {
         Assertions.assertFalse(userStorageRepository.findAll().isEmpty());
     }
 
-    // not working --> itthagyom érdekességként
+    // not working --> next week task
     @Test
     void deleteUserByNameTest() {
         userStorageService.deleteUser(testUserProfile.getUserName());
