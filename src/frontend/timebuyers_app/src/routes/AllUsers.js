@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../static/CSS/Usercard.css';
 import '../static/CSS/Inside.css';
-import test_pic from '../static/images/testphoto.jpg'
-import {BrowserRouter, Link, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 const fetchUsers = async (filter, statusFilter) => {
@@ -62,7 +61,7 @@ const showUserCards = function (data) {
 const UserCard = (item) => {
     return (
         <div className="card">
-            <img src={item.photo} alt="photo" style={{width: "100%"}}></img>
+            <img src={item.photo} style={{width: "100%"}} alt="profile"></img>
             <h1>{item.name}</h1>
             <p className="title">{item.email}</p>
             <p>{item.town}</p>
