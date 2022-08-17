@@ -1,8 +1,7 @@
 package com.codecool.timebuyers.model;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.*;
@@ -12,7 +11,8 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @Builder
-public class UserProfile {
+@Getter
+public class UserProfile implements UserDetails {
 
 
     @Id
@@ -37,6 +37,8 @@ public class UserProfile {
     private List<Task> taskToTake;
     private int rating;
     private String photo;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
     @Override
@@ -44,4 +46,33 @@ public class UserProfile {
         return "userName: " + userName;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
