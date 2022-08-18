@@ -20,8 +20,6 @@ function Login(){
 
     async function loginUser(loginData) {
         return apiPost("/login",loginData);
-            // .then(r => {setUpLogin(r)});
-
     }
 
     async function apiPost(url, payload) {
