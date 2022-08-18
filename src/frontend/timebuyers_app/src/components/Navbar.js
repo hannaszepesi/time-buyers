@@ -35,7 +35,7 @@ function Navbar(){
                 </ul>
                 <ul className="navbar-nav mr-right">
                     <li className="nav-item">
-                        <a className="nav-link" href="src/frontend/timebuyers_app/src/components/Navbar#">Login</a>
+                        <Link to={"/login"} className="nav-link"> Login </Link>
                     </li>
                     <li className="nav-item">
                         <Link to={"/users/new-user"} className="nav-link">Registration</Link>
