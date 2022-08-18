@@ -1,5 +1,7 @@
 import {useState} from "react";
 import '../static/CSS/Register.css';
+import {useNavigate} from "react-router-dom";
+
 
 function Login(){
 
@@ -12,10 +14,11 @@ function Login(){
     const handlePassword = function(event) {
         setPassword(event.target.value)
     }
-
+const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         await loginUser({username, password})
+        navigate("/");
     }
 
     async function loginUser(loginData) {
