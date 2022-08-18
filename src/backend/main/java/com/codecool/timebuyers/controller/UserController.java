@@ -55,16 +55,16 @@ public class UserController {
 //    }
 
     @PostMapping(value = "api/new-user")
-    public void addUser(@RequestBody UserProfile newUser, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public void addUser(@RequestBody UserProfile newUser)/**, @RequestParam("image") MultipartFile multipartFile) throws IOException**/ {
 
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        newUser.setPhoto(fileName);
-
-        UserProfile savedUser = userStorageRepository.save(newUser);
-
-        String uploadDir = "user-photos/" + savedUser.getUsername();
-
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+//        newUser.setPhoto(fileName);
+//
+//        UserProfile savedUser = userStorageRepository.save(newUser);
+//
+//        String uploadDir = "user-photos/" + savedUser.getUsername();
+//
+//        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         userStorageService.addUser(newUser);
     }
 
