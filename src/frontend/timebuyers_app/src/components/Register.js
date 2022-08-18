@@ -36,6 +36,14 @@ export default function RegisterForm() {
         if (username === '' || email === '' || password === '') {
             setError(true);
         } else {
+            fetch('/api/new-user', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'userName': username, 'password': password})
+            }).then(r => console.log("success", r));
             setSubmitted(true);
             setError(false);
         }
@@ -92,10 +100,10 @@ export default function RegisterForm() {
                 <input onChange={handlePassword} className="input"
                        value={password} type="password" />
 
-                <div>
-                    <label>Photos: </label>
-                    <input type="file" name="image" accept="image/png, image/jpeg" />
-                </div>
+                {/*<div>*/}
+                {/*    <label>Photos: </label>*/}
+                {/*    <input type="file" name="image" accept="image/png, image/jpeg" />*/}
+                {/*</div>*/}
 
                 <button onClick={handleSubmit} className="btn" type="submit">a
                     Submit
