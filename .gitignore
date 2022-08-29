@@ -34,4 +34,4 @@ build/
 
 *.json
 
-src/backend/main/resources/static/static
+src/backend/main/resources/static
