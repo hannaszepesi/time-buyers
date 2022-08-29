@@ -33,3 +33,5 @@ build/
 .vscode/
 
 *.json
+
+src/backend/main/resources/static/static
