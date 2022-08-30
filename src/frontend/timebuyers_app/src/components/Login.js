@@ -2,11 +2,16 @@ import {useState} from "react";
 import '../static/CSS/Register.css';
 import {useNavigate} from "react-router-dom";
 
+export const isLoggedIn = (loggedIn) => {
+    return loggedIn;
+}
 
 function Login(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    export let [loggedIn, setLoggedIn] = useState(false);
 
     const handleUsername = function(event) {
         setUsername(event.target.value)
@@ -14,11 +19,12 @@ function Login(){
     const handlePassword = function(event) {
         setPassword(event.target.value)
     }
-const navigate = useNavigate();
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         await loginUser({username, password})
-        navigate("/");
+        setLoggedIn(true);
+        navigate("/login");
     }
 
     async function loginUser(loginData) {
@@ -26,14 +32,20 @@ const navigate = useNavigate();
     }
 
     async function apiPost(url, payload) {
+        console.log(payload)
         let response = await fetch(url, {
+            credentials: 'include',
             method: "POST",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify(payload)
         });
+        console.log(response.status)
         if (response.status === 200) {
-            console.log(response.headers.get('Authorization'));
-            localStorage.setItem(username, response.headers.get('Authorization'))
+            // console.log(response.headers.get('Authorization'));
+            let header = response.headers.get('Authorization');
+            localStorage.setItem("username", JSON.stringify(payload.username));
+            localStorage.setItem("header", JSON.stringify(header));
+            // console.log(localStorage);
             return response.headers.get('Authorization');
         }
     }
