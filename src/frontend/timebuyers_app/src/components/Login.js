@@ -32,7 +32,9 @@ const navigate = useNavigate();
             body: JSON.stringify(payload)
         });
         if (response.status === 200) {
-            return response.json();
+            console.log(response.headers.get('Authorization'));
+            localStorage.setItem(username, response.headers.get('Authorization'))
+            return response.headers.get('Authorization');
         }
     }
 
