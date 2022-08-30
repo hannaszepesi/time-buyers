@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PasswordChecklist from "react-password-checklist"
 import '../static/CSS/Register.css';
 
 export default function RegisterForm() {
@@ -7,6 +8,7 @@ export default function RegisterForm() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordAgain, setPasswordAgain] = useState('');
 
     // States for checking the errors
     const [submitted, setSubmitted] = useState(false);
@@ -30,19 +32,26 @@ export default function RegisterForm() {
         setSubmitted(false);
     };
 
+    const handlePasswordAgain = (e) => {
+        setPasswordAgain(e.target.value);
+        setSubmitted(false);
+    };
+
     // Handling the form submission
     const handleSubmit = (e) => {
+
         e.preventDefault();
         if (username === '' || email === '' || password === '') {
             setError(true);
-        } else {
+        }
+        else {
             fetch('/api/new-user', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({'userName': username, 'password': password})
+                body: JSON.stringify({'userName': username, 'password': password, 'email': email})
             }).then(r => console.log("success", r));
             setSubmitted(true);
             setError(false);
@@ -87,10 +96,10 @@ export default function RegisterForm() {
                {successMessage()}
            </div>
 
-           <form action="/api/new-user" method="post" encType="multipart/form-data">
+           <form action="/api/new-user" method="post">
                 <label className="label">Username</label>
                 <input onChange={handleName} className="input"
-                       value={username} type="text" />
+                       value={username} type="username" />
 
                 <label className="label">Email</label>
                 <input onChange={handleEmail} className="input"
@@ -100,10 +109,16 @@ export default function RegisterForm() {
                 <input onChange={handlePassword} className="input"
                        value={password} type="password" />
 
-                {/*<div>*/}
-                {/*    <label>Photos: </label>*/}
-                {/*    <input type="file" name="image" accept="image/png, image/jpeg" />*/}
-                {/*</div>*/}
+               <label className="label">Confirm Password</label>
+               <input onChange={handlePasswordAgain} className="input"
+                      value={passwordAgain} type="password" />
+
+               <PasswordChecklist
+                   rules={["minLength","number","capital","match"]}
+                   minLength={6}
+                   value={password}
+                   valueAgain={passwordAgain}
+               />
 
                 <button onClick={handleSubmit} className="btn" type="submit">a
                     Submit
