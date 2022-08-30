@@ -2,10 +2,6 @@ import {useState} from "react";
 import '../static/CSS/Register.css';
 import {useNavigate} from "react-router-dom";
 
-export const isLoggedIn = (loggedIn) => {
-    return loggedIn;
-}
-
 function Login(){
 
     const [username, setUsername] = useState("");
@@ -24,7 +20,7 @@ function Login(){
         event.preventDefault();
         await loginUser({username, password})
         setLoggedIn(true);
-        navigate("/login");
+        navigate("/");
     }
 
     async function loginUser(loginData) {
