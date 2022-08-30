@@ -11,6 +11,7 @@ import AboutUs from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import EditProfile from "./components/EditProfile";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +27,7 @@ root.render(
                 <Route path="" element={<Inside />}/>
                 <Route path="users/edit-profile/:filter" element={<EditProfile />}/>
                 <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
 
             </Route>
 
