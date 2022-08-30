@@ -5,6 +5,7 @@ import com.codecool.timebuyers.dao.UserStorageRepository;
 import com.codecool.timebuyers.model.UserProfile;
 import com.codecool.timebuyers.model.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class UserStorageService {
     @Autowired
     UserStorageRepository userStorageRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserProfile getUserByEmail(String email){
         return userStorageRepository.findByEmail(email);
     }
@@ -31,6 +35,7 @@ public class UserStorageService {
         return userStorageRepository.findAll();
     }
     public void addUser(UserProfile newUserProfile) {
+        newUserProfile.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
         userStorageRepository.save(newUserProfile);
     }
     public void deleteUser(String userName){
