@@ -43,3 +43,6 @@ jobs:
               cp ./build/* ../../backend/main/resources/static
 
 
+              #valami
+
+
