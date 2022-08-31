@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  psql:
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  backend:
+    image: 'jspringio/timebuyers'
+    ports:
+      - '8080:8080'
+    build:
+      context: .
+    container_name: springio/timebuyers
+    depends_on:
+      - psql
+    environment:
+      - PSQL_HOST=database
+      - PSQL_DB_NAME=postgres
+      - PSQL_USERNAME=postgres
+      - PSQL_PASSWORD=postgres
