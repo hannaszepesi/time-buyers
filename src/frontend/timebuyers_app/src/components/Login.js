@@ -1,13 +1,16 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import '../static/CSS/Register.css';
 import {useNavigate} from "react-router-dom";
+import {LogContext} from "./Navbar";
+
+
 
 function Login(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    export let [loggedIn, setLoggedIn] = useState(false);
+    let isLoggedIn = useContext(LogContext)
 
     const handleUsername = function(event) {
         setUsername(event.target.value)
@@ -16,10 +19,11 @@ function Login(){
         setPassword(event.target.value)
     }
     const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         await loginUser({username, password})
-        setLoggedIn(true);
+        isLoggedIn = true;
         navigate("/");
     }
 
@@ -37,11 +41,9 @@ function Login(){
         });
         console.log(response.status)
         if (response.status === 200) {
-            // console.log(response.headers.get('Authorization'));
             let header = response.headers.get('Authorization');
             localStorage.setItem("username", JSON.stringify(payload.username));
             localStorage.setItem("header", JSON.stringify(header));
-            // console.log(localStorage);
             return response.headers.get('Authorization');
         }
     }
