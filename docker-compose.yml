@@ -2,13 +2,14 @@ version: '3'
 
 services:
   psql:
-    image: 'postgres:latest'
-    ports:
-      - '5432:5432'
+    image: postgres:latest
+    restart: always
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=berni
+      - POSTGRES_PASSWORD=Karmapa108
+    volumes:
+      - psql:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
     image: 'jspringio/timebuyers'
@@ -16,11 +17,17 @@ services:
       - '8080:8080'
     build:
       context: .
-    container_name: springio/timebuyers
+    container_name: timebuyers
     depends_on:
       - psql
     environment:
-      - PSQL_HOST=database
-      - PSQL_DB_NAME=postgres
-      - PSQL_USERNAME=postgres
-      - PSQL_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql:5432/berni
+      - SPRING_DATASOURCE_USERNAME=berni
+      - SPRING_DATASOURCE_PASSWORD=Karmapa108
+    links:
+      - psql
+    volumes:
+      - './:/src'
+volumes:
+  psql:
+    driver: local
