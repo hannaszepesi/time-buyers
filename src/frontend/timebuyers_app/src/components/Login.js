@@ -1,6 +1,8 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import '../static/CSS/Register.css';
 import {useNavigate} from "react-router-dom";
+import {LogContext} from "./Navbar";
+
 
 
 function Login(){
@@ -8,16 +10,20 @@ function Login(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    let isLoggedIn = useContext(LogContext)
+
     const handleUsername = function(event) {
         setUsername(event.target.value)
     }
     const handlePassword = function(event) {
         setPassword(event.target.value)
     }
-const navigate = useNavigate();
+    const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         await loginUser({username, password})
+        isLoggedIn = true;
         navigate("/");
     }
 
@@ -26,14 +32,18 @@ const navigate = useNavigate();
     }
 
     async function apiPost(url, payload) {
+        console.log(payload)
         let response = await fetch(url, {
+            credentials: 'include',
             method: "POST",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify(payload)
         });
+        console.log(response.status)
         if (response.status === 200) {
-            console.log(response.headers.get('Authorization'));
-            localStorage.setItem(username, response.headers.get('Authorization'))
+            let header = response.headers.get('Authorization');
+            localStorage.setItem("username", JSON.stringify(payload.username));
+            localStorage.setItem("header", JSON.stringify(header));
             return response.headers.get('Authorization');
         }
     }

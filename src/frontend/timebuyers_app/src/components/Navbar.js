@@ -1,8 +1,14 @@
 import '../static/CSS/Navbar.css';
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import LoggedInOrNot from "./LoggedInOrNot";
+import {createContext, useContext} from "react";
+
+
+export const LogContext = createContext(localStorage.getItem("username" ) !== null);
 
 function Navbar(){
+    const isLoggedIn = useContext(LogContext);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to={"/"}  className="navbar-brand">TimeBuyers</Link>
@@ -33,17 +39,9 @@ function Navbar(){
                         <Link to="contact-us" className="nav-link">Contact us </Link>
                     </li>
                 </ul>
-                <ul className="navbar-nav mr-right">
-                    <li className="nav-item">
-                        <Link to={"/login"} className="nav-link"> Login </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={"/users/new-user"} className="nav-link">Registration</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={"/users/edit-profile/josh@gmail.com"} className="nav-link">Edit Profile</Link>
-                    </li>
-                </ul>
+                <LogContext.Provider value={isLoggedIn}>
+                <LoggedInOrNot id="log" isLoggedIn={isLoggedIn} />
+                </LogContext.Provider>
             </div>
         </nav>
     )
