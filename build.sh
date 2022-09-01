@@ -4,7 +4,7 @@ cd ../..
 cp -r frontend/timebuyers_app/build/ backend/src/main/resources/static
 cd backend
 mvn clean package
-cd ..
+#cd ..
 #export PSQL_USERNAME=berni
 #export PSQL_DB_NAME=timebuyers
 #export PSQL_PASSWORD=Karmapa108
