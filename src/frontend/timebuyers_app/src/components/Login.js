@@ -53,15 +53,15 @@ function Login(){
     return (
         <div>
             <form>
-                <label> Username
-                    <input onChange={handleUsername} className="input" name="username" type="text"
+                <label> Username </label>
+                    <input onChange={handleUsername} className="input" name="username" type="username"
                            value={username} />
-                </label>
-                <label> Password
+
+                <label> Password </label>
                     <input onChange={handlePassword} className="input" name="password" type="password"
                            value={password} />
-                </label>
-                <button type="submit" onClick={handleSubmit}>Log in</button>
+
+                <button type="submit" onClick={handleSubmit} className="btn">Login</button>
             </form>
         </div>
     );
