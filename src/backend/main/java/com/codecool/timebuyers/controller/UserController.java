@@ -57,8 +57,8 @@ public class UserController {
 //    }
 
     @PostMapping(value = "api/new-user")
-    public ResponseEntity<?> addUser(@RequestBody UserProfile newUser)/**, @RequestParam("image") MultipartFile multipartFile) throws IOException**/ {
-        if (userStorageService.getUserByEmail(newUser.getUsername()) != null) {
+    public ResponseEntity<String> addUser(@RequestBody UserProfile newUser)/**, @RequestParam("image") MultipartFile multipartFile) throws IOException**/ {
+        if (userStorageService.getUserByEmail(newUser.getEmail()) != null) {
             return ResponseEntity
                     .status(HttpStatus.I_AM_A_TEAPOT)
                     .body("It seems like this e-mail is used by another profile.");
