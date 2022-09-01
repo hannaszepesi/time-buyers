@@ -2,6 +2,7 @@
 package com.codecool.timebuyers.service;
 
 import com.codecool.timebuyers.dao.UserStorageRepository;
+import com.codecool.timebuyers.model.Role;
 import com.codecool.timebuyers.model.UserProfile;
 import com.codecool.timebuyers.model.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class UserStorageService {
     }
     public void addUser(UserProfile newUserProfile) {
         newUserProfile.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
+        newUserProfile.setRole(Role.USER);
         userStorageRepository.save(newUserProfile);
     }
     public void deleteUser(String userName){
