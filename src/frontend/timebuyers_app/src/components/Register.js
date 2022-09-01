@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import PasswordChecklist from "react-password-checklist"
 import '../static/CSS/Register.css';
+import {useNavigate} from "react-router-dom";
+
 
 export default function RegisterForm() {
-
+    const navigate = useNavigate();
     // States for registration
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordAgain, setPasswordAgain] = useState('');
+    const [alreadyExistsError, setAlreadyExitsError] = useState('');
 
     // States for checking the errors
     const [submitted, setSubmitted] = useState(false);
@@ -20,10 +23,18 @@ export default function RegisterForm() {
         setSubmitted(false);
     };
 
+    const [emailError, setEmailError] = useState('');
+    const regex = new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
     // Handling the email change
     const handleEmail = (e) => {
         setEmail(e.target.value);
         setSubmitted(false);
+        if (regex.test(email) === false) {
+            setEmailError("Please enter a valid e-mail address")
+        }
+        else {
+            setEmailError("")
+        }
     };
 
     // Handling the password change
@@ -39,37 +50,46 @@ export default function RegisterForm() {
 
     // Handling the form submission
     const handleSubmit = (e) => {
-
         e.preventDefault();
         if (username === '' || email === '' || password === '') {
             setError(true);
         }
         else {
-            fetch('/api/new-user', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({'userName': username, 'password': password, 'email': email})
-            }).then(r => console.log("success", r));
-            setSubmitted(true);
-            setError(false);
+            if (error === false && checkIfPasswordValid() && emailError === "") {
+                setSubmitted(true);
+                fetch('/api/new-user', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({'userName': username, 'password': password, 'email': email})
+                }).then((r) => checkIfRegistered(r));
+            }
         }
     };
 
-    // Showing success message
-    const successMessage = () => {
-        return (
-            <div
-                className="success"
-                style={{
-                    display: submitted ? '' : 'none',
-                }}>
-                <h1>User {username} successfully registered!!</h1>
-            </div>
-        );
-    };
+    async function checkIfRegistered(resp) {
+        if (resp.status === 200) {
+            setAlreadyExitsError("");
+            console.log("Successful registration")
+            alert("You've registered successfully!")
+            navigate("/login")
+        }
+        if (resp.status === 418) {
+            setAlreadyExitsError(await resp.text());
+        }
+    }
+
+    function checkIfPasswordValid() {
+        let tickBoxes = document.getElementsByClassName("eAyRRL")
+        for (let tickBox of tickBoxes) {
+            if (tickBox.classList.contains("invalid")) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // Showing error message if error is true
     const errorMessage = () => {
@@ -93,8 +113,9 @@ export default function RegisterForm() {
            {/* Calling to the methods */}
            <div className="messages">
                {errorMessage()}
-               {successMessage()}
+               {alreadyExistsError}
            </div>
+
 
            <form action="/api/new-user" method="post">
                 <label className="label">Username</label>
@@ -104,6 +125,9 @@ export default function RegisterForm() {
                 <label className="label">Email</label>
                 <input onChange={handleEmail} className="input"
                        value={email} type="email" />
+               <div className="messages">
+                   {emailError}
+               </div>
 
                 <label className="label">Password</label>
                 <input onChange={handlePassword} className="input"
@@ -112,15 +136,15 @@ export default function RegisterForm() {
                <label className="label">Confirm Password</label>
                <input onChange={handlePasswordAgain} className="input"
                       value={passwordAgain} type="password" />
-
+                <div className="password-checklist">
                <PasswordChecklist
                    rules={["minLength","number","capital","match"]}
                    minLength={6}
                    value={password}
                    valueAgain={passwordAgain}
                />
-
-                <button onClick={handleSubmit} className="btn" type="submit">a
+                </div>
+                <button onClick={handleSubmit} className="btn" type="submit">
                     Submit
                 </button>
             </form>
