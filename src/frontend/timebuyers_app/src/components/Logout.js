@@ -1,6 +1,7 @@
 import React from "react";
 
-function Logout(){
+function Logout({setLoggedIn}){
+    setLoggedIn(false);
     localStorage.clear();
 }
 
