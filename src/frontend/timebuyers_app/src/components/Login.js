@@ -1,16 +1,15 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import '../static/CSS/Register.css';
 import {useNavigate} from "react-router-dom";
-import {LogContext} from "./Navbar";
 
 
 
-function Login(){
+
+function Login({setLoggedIn}){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    let isLoggedIn = useContext(LogContext)
 
     const handleUsername = function(event) {
         setUsername(event.target.value)
@@ -23,7 +22,7 @@ function Login(){
     const handleSubmit = async (event) => {
         event.preventDefault();
         await loginUser({username, password})
-        isLoggedIn = true;
+        setLoggedIn(true);
         navigate("/");
     }
 
