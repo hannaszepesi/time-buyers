@@ -37,15 +37,21 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
+//                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .cors().and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ne használjon sessiont
                 .and()
                 .addFilter(new JwtUsernamePasswordAuthenticationFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenVerifier(), JwtUsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*", "/login", "/api/new-user").permitAll()
-                .antMatchers("/api/users/taskers").hasRole(USER.name())
-                .antMatchers("/api/users/all").hasRole(ADMIN.name())
+                .antMatchers("/", "index", "/static/css/*", "/static/js/*", "/login", "/api/*", "/index.html", "/images/*", "/static/media/*", "favicon.ico", "/tasks/*", "/api/users/*", "/api/tasks/*").permitAll()
+//                .antMatchers("/api/users/taskers").hasRole(USER.name())
+//                .antMatchers("/api/users/all").hasRole(ADMIN.name())
+//                .antMatchers("/api/continent/allContinents").hasRole(ADMIN.name())
+//                .antMatchers(HttpMethod.DELETE, "management/api/**").hasAuthority(COURSER_WRITE.name())
+//                .antMatchers(HttpMethod.POST, "management/api/**").hasAuthority(COURSER_WRITE.name())
+//                .antMatchers(HttpMethod.PUT, "management/api/**").hasAuthority(COURSER_WRITE.name())
+//                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
                 .anyRequest()
                 .authenticated();
 

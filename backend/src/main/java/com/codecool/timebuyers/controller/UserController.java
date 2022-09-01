@@ -4,17 +4,10 @@ package com.codecool.timebuyers.controller;
 import com.codecool.timebuyers.dao.UserStorageRepository;
 import com.codecool.timebuyers.model.UserProfile;
 import com.codecool.timebuyers.service.UserStorageService;
-import com.codecool.timebuyers.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,17 +50,8 @@ public class UserController {
 //    }
 
     @PostMapping(value = "api/new-user")
-    public ResponseEntity<String> addUser(@RequestBody UserProfile newUser)/**, @RequestParam("image") MultipartFile multipartFile) throws IOException**/ {
-        if (userStorageService.getUserByEmail(newUser.getEmail()) != null) {
-            return ResponseEntity
-                    .status(HttpStatus.I_AM_A_TEAPOT)
-                    .body("It seems like this e-mail is used by another profile.");
-        }
-        if (userStorageService.getUserByUsername(newUser.getUsername()).isPresent()) {
-            return ResponseEntity
-                    .status(HttpStatus.I_AM_A_TEAPOT)
-                    .body("Username already exists. Please choose another one!");
-        }
+    public void addUser(@RequestBody UserProfile newUser)/**, @RequestParam("image") MultipartFile multipartFile) throws IOException**/ {
+
 //        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
 //        newUser.setPhoto(fileName);
 //
@@ -77,10 +61,6 @@ public class UserController {
 //
 //        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         userStorageService.addUser(newUser);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body("Successful registration");
-
     }
 
     @DeleteMapping(value = "api/delete/{username}")
