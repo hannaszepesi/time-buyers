@@ -38,8 +38,4 @@ jobs:
             working-directory: ./src/frontend/timebuyers_app
             run: |
               npm run lint
-              npm run build
-# copy static built files locally from frontend to backend
-              cp ./build/* ../../backend/main/resources/static
-
 
