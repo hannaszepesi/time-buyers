@@ -1,0 +1,30 @@
+.navbar-collapse {
+    background-color: #00A1F1;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color: white;
+    text-align: center;
+    font-size: larger;
+
+}
+
+.navbar-nav a:hover {
+    background-color: lightskyblue;
+    color: black;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    color: black !important;
+    font-weight: bold;
+    border-bottom: solid 1px #00A1F1;
+    border-top: solid 1px #00A1F1;
+    font-size: x-large;
+}
+
+.dropdown-toggle,
+.dropdown-menu {
+    width: 100%;
+}
+

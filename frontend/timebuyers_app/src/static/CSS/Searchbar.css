@@ -1,0 +1,36 @@
+.searchbarContainer {
+    width: max-content;
+}
+
+.taskTitle {
+    color: white;
+    font-size: large;
+}
+
+.search-menu {
+    background-color: #B3C100;
+}
+
+.dropdown-menu {
+    border: 0px !important;
+}
+.dropdown-item .dropdown-item-searchbar{
+    color: white !important;
+    padding: 2px !important;
+
+}
+
+.dropdown-item:hover{
+    color: black !important;
+    background-color: white;
+}
+
+a:hover {
+    color: black;
+}
+
+.dropdown-item-searchbar {
+    padding: 2px !important;
+}
+
+

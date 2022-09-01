@@ -1,0 +1,105 @@
+
+#hero1, #hero2, #hero3 {
+    width: 100%;
+    height: 50vh;
+    background-size: cover;
+    position: relative;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+#hero1 {
+    background: url(https://img.freepik.com/free-vector/time-management-concept_52683-63895.jpg?w=2000
+    ) center center;
+
+    }
+
+#hero2 {
+    background: url(https://img.freepik.com/free-vector/hands-holding-tablet-with-business-plan-statistics-screen-time-money-management-budget-planning-flat-vector-illustration-strategy-success-concept-banner-landing-web-page_74855-24798.jpg?w=2000) center center;
+}
+
+#hero3 {
+    background: url(https://img.freepik.com/premium-vector/happy-family-mother-father-daughter-son-holding-hands-hugging-complete-prosperous-family_566886-559.jpg?w=1380) center center;
+}
+
+
+
+.flex-container-inside {
+    padding-top: 1%;
+    padding-right: 3%;
+    padding-left: 3%;
+}
+
+#hero1:before, #hero2:before, #hero3:before {
+    content: "";
+    background: rgb(55 129 167 / 70%);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #B3C100;
+}
+
+#hero1 h1, #hero2 h1, #hero3 h1  {
+    margin: 0 0 10px 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    color: #fff;
+}
+
+#hero1 h1 span, #hero2 h1 span, #hero3 h1 span {
+    border-bottom: 4px solid #B3C100;
+}
+
+.upper-section-text-container {
+    z-index: 2;
+}
+
+#hero1 h2, #hero2 h2, #hero3 h2 {
+    color: white;
+}
+
+    /* Slideshow */
+
+.slideshow {
+    margin: 0 auto;
+    overflow: hidden;
+    max-width: 98rem;
+}
+
+.slideshowSlider {
+    white-space: nowrap;
+    transition: ease 1000ms;
+}
+
+.slide {
+    display: inline-block;
+    height: 400px;
+    width: 100%;
+    border-radius: 40px;
+}
+
+/* Buttons */
+
+.slideshowDots {
+    text-align: center;
+    position: relative;
+}
+
+.slideshowDot {
+    display: inline-block;
+    height: 1.5vh;
+    width: 1.5vh;
+    border-radius: 50%;
+
+    cursor: pointer;
+    margin: 10px 7px 0px;
+
+    background-color: #c4c4c4;
+}
+
+.slideshowDot.active {
+    background-color: #B3C100;
+}
+
