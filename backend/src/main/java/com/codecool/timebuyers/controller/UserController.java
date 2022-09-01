@@ -4,15 +4,12 @@ package com.codecool.timebuyers.controller;
 import com.codecool.timebuyers.dao.UserStorageRepository;
 import com.codecool.timebuyers.model.UserProfile;
 import com.codecool.timebuyers.service.UserStorageService;
-import com.codecool.timebuyers.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
