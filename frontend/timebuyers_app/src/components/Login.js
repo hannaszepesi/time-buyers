@@ -3,10 +3,13 @@ import '../static/CSS/Register.css';
 import {useNavigate} from "react-router-dom";
 
 
-function Login(){
+
+
+function Login({setLoggedIn}){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
 
     const handleUsername = function(event) {
         setUsername(event.target.value)
@@ -14,10 +17,12 @@ function Login(){
     const handlePassword = function(event) {
         setPassword(event.target.value)
     }
-const navigate = useNavigate();
+    const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         await loginUser({username, password})
+        setLoggedIn(true);
         navigate("/");
     }
 
@@ -26,13 +31,19 @@ const navigate = useNavigate();
     }
 
     async function apiPost(url, payload) {
+        console.log(payload)
         let response = await fetch(url, {
+            credentials: 'include',
             method: "POST",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify(payload)
         });
+        console.log(response.status)
         if (response.status === 200) {
-            return response.json();
+            let header = response.headers.get('Authorization');
+            localStorage.setItem("username", JSON.stringify(payload.username));
+            localStorage.setItem("header", JSON.stringify(header));
+            return response.headers.get('Authorization');
         }
     }
 
@@ -41,15 +52,15 @@ const navigate = useNavigate();
     return (
         <div>
             <form>
-                <label> Username
-                    <input onChange={handleUsername} className="input" name="username" type="text"
+                <label> Username </label>
+                    <input onChange={handleUsername} className="input" name="username" type="username"
                            value={username} />
-                </label>
-                <label> Password
+
+                <label> Password </label>
                     <input onChange={handlePassword} className="input" name="password" type="password"
                            value={password} />
-                </label>
-                <button type="submit" onClick={handleSubmit}>Log in</button>
+
+                <button type="submit" onClick={handleSubmit} className="btn">Login</button>
             </form>
         </div>
     );

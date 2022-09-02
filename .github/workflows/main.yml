@@ -35,7 +35,7 @@ jobs:
               npm ci
 
           - name: build & test
-            working-directory: ./src/frontend/timebuyers_app
+            working-directory: ./frontend/timebuyers_app
             run: |
               npm run lint
 
