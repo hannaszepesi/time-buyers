@@ -19,12 +19,13 @@
 }
 .btn{
     color: white;
-    background-color: red;
+    background-color: #B3C100;
     border-radius: 5px;
     font-size: larger;
     display: block;
     padding: 5px;
     margin: 10px auto;
+    width: 6em;
 }
 
 .messages{
@@ -48,4 +49,9 @@
     width: fit-content;
     height: 50px;
     padding: 5px;
+}
+
+.password-checklist {
+    display: flex;
+    justify-content: space-around;
 }
