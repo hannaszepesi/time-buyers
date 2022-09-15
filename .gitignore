@@ -32,6 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-*.json
-
-backend/src/main/resources/static
+/frontend/timebuyers_app/node_modules
